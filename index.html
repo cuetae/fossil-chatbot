@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>바른이 - 화석 생성 실험 챗봇</title>
+  <script src="https://cdn.jsdelivr.net/npm/botui/build/botui.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui.min.css" />
+  <style>
+    body {
+      font-family: 'Arial';
+      background: #f2f2f2;
+      padding: 20px;
+    }
+    .botui-app-container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h2>화석 생성 실험 챗봇 - 바른이</h2>
+  <div id="botui-app">
+    <bot-ui></bot-ui>
+  </div>
+
+  <script>
+    var botui = new BotUI('botui-app');
+
+    botui.message.add({
+      content: '안녕! 난 화석 실험 도우미 바른이야. 오늘은 화석이 어떻게 만들어지는지 실험해볼 거야!'
+    }).then(function () {
+      return botui.message.add({
+        content: '준비물부터 확인해볼까?'
+      });
+    }).then(function () {
+      return botui.action.button({
+        action: [
+          { text: '응! 준비물 알려줘!', value: 'materials' },
+          { text: '아니, 먼저 실험 설명 듣고 싶어.', value: 'explain' }
+        ]
+      });
+    }).then(function (res) {
+      if (res.value === 'materials') {
+        return botui.message.add({
+          content: '좋아! 준비물은 다음과 같아: 찰흙, 물, 석고, 생물 모형, 받침판 2개, 아두이노 장치, 공룡 발자국 모형이 필요해.'
+        });
+      } else {
+        return botui.message.add({
+          content: '이 실험은 지형 변화와 퇴적 과정을 통해 화석이 어떻게 생기는지를 관찰하는 거야. 침강 → 퇴적 → 융기 → 침식 순서로 진행돼!'
+        });
+      }
+    }).then(function () {
+      return botui.message.add({
+        content: '그럼 1단계부터 시작해보자! 받침판 A에는 찰흙을 높게 쌓고, B에는 물을 채워줘.'
+      });
+    }).then(function () {
+      return botui.action.button({
+        action: [
+          { text: '했어!', value: 'done1' },
+          { text: '왜 그렇게 해야 해?', value: 'why1' }
+        ]
+      });
+    }).then(function (res) {
+      if (res.value === 'why1') {
+        return botui.message.add({
+          content: '좋은 질문이야! 이건 지층의 침강을 표현하는 거야. 나중에 물이 흘러가면서 퇴적이 일어나는 걸 보여줄 수 있어.'
+        });
+      }
+    }).then(function () {
+      return botui.message.add({
+        content: '이제 생물 모형을 찰흙 위에 놓고, 공룡 발자국도 찍어줘. 체화석과 생흔화석을 동시에 만들 수 있어!'
+      });
+    });
+  </script>
+</body>
+</html>
